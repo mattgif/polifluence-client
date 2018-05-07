@@ -1,7 +1,7 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 
-import { polifluenceReducer } from '../reducers'
+import { polifluenceReducer } from './reducers'
 
 const store = createStore(
     combineReducers({
