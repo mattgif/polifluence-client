@@ -4,10 +4,6 @@ export default class ExpandableRow extends React.Component {
     /**
      * return tbody, intended to be used as table row. 'row' expands on click to reveal additional data
      *
-     * @param props
-     * @typedef {object} data - data to be formatted
-     * @typedef {function} formatExpanded - function to return formatted expandedData
-     * @typedef {function} formatTopData - function that returns a formatted array of td elements
      */
 
     constructor(props) {
@@ -18,22 +14,21 @@ export default class ExpandableRow extends React.Component {
     }
 
     render() {
-        const { expanded, data } = this.props;
+        const { topSection, expandedSection } = this.props;
+        const { expanded } = this.state;
         const collapsedStyle = {
             width: 0,
             height: 0,
             display: 'none'
         };
-        const top = data.map(data => formatTopData(data));
-        const bot = data.map(data => formatExpanded(data));
 
         return (
             <tbody>
             <tr onClick={() => this.setState({expanded: !expanded})}>
-                {top}
+                {topSection}
             </tr>
-            <tr><td  colSpan={top.length} className={expanded ? 'expanded' : 'collapsed'} style={expanded ? '' : collapsedStyle}>
-                {bot}
+            <tr><td  colSpan={topSection.length} className={expanded ? 'expanded' : 'collapsed'} style={expanded ? {} : collapsedStyle}>
+                {expandedSection}
             </td></tr>
             </tbody>
         )

@@ -45,3 +45,24 @@ export const setSearchType = searchType => ({
     type: SET_SEARCH_TYPE,
     searchType
 });
+
+export const FETCH_BILLS_BY_MEMBER_REQUEST = 'FETCH_BILLS_BY_MEMBER_REQUEST';
+export const fetchBillsByMemberRequest = () => ({
+    type: FETCH_BILLS_BY_MEMBER_REQUEST
+});
+
+export const FETCH_BILLS_BY_MEMBER_SUCCESS = 'FETCH_BILLS_BY_MEMBER_SUCCESS';
+export const fetchBillsByMemberSuccess = (bills, memberId) => ({
+    type: FETCH_BILLS_BY_MEMBER_SUCCESS,
+    bills,
+    memberId
+});
+
+export const fetchBillsByMember = memberId => dispatch => {
+    dispatch(fetchBillsByMemberRequest());
+    return fetch(`${API_BASE_URL}/members/${memberId}/bills`, {
+        method: 'GET'
+    })
+        .then(res => res.json())
+        .then(body => dispatch(fetchBillsByMemberSuccess(body.bills, memberId)))
+};

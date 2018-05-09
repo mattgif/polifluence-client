@@ -1,5 +1,7 @@
 import {
-    CHANGE_SEARCH_TERM, CLEAR_SEARCH_TERM, FETCH_MEMBERS_ERROR, FETCH_MEMBERS_REQUEST, FETCH_MEMBERS_SUCCESS,
+    CHANGE_SEARCH_TERM, CLEAR_SEARCH_TERM, FETCH_BILLS_BY_MEMBER_REQUEST, FETCH_BILLS_BY_MEMBER_SUCCESS,
+    FETCH_MEMBERS_ERROR, FETCH_MEMBERS_REQUEST,
+    FETCH_MEMBERS_SUCCESS,
     SET_SEARCH_TYPE
 } from "../actions";
 
@@ -7,8 +9,11 @@ const initialState = {
     members: [],
     error: undefined,
     loading: false,
-    searchTerm: undefined,
-    searchType: 'member'
+    searchTerm: '',
+    searchType: 'member',
+    bills: {},
+    fetchedBillsForMember: {},
+    fetchingBills: false
 };
 
 export const polifluenceReducer = (state = initialState, action) => {
@@ -34,6 +39,26 @@ export const polifluenceReducer = (state = initialState, action) => {
 
     else if (action.type === CLEAR_SEARCH_TERM) {
         return {...state, searchTerm: undefined}
+    }
+
+    else if (action.type === FETCH_BILLS_BY_MEMBER_REQUEST) {
+        return {...state, fetchingBills: true}
+    }
+
+    else if (action.type === FETCH_BILLS_BY_MEMBER_SUCCESS) {
+        const updatedState = Object.assign({}, state);
+        action.bills.forEach(bill => {
+            updatedState.bills = {
+                ...updatedState.bills,
+                [bill.id]: bill
+            };
+        });
+        updatedState.fetchingBills = false;
+        updatedState.fetchedBillsForMember = {
+            ...updatedState.fetchedBillsForMember,
+            [action.memberId]: true
+        };
+        return updatedState;
     }
 
     return state;

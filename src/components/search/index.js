@@ -4,7 +4,7 @@ import {changeSearchTerm, setSearchType} from "../../actions";
 
 export class Search extends React.Component {
     handleSearchTermChange = e => {
-        const searchTerm = e.target.value();
+        const searchTerm = e.target.value;
         this.props.dispatch(changeSearchTerm(searchTerm));
     };
 
