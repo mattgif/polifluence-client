@@ -1,11 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {changeSearchTerm, setSearchType} from "../../actions";
+import {changeSearchTerm, searchBills, setSearchType} from "../../actions";
 
 export class Search extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: undefined
+        }
+    }
+
     handleSearchTermChange = e => {
         const searchTerm = e.target.value;
         this.props.dispatch(changeSearchTerm(searchTerm));
+        this.setState({ error: undefined })
     };
 
     handleTypeChange = e => {
@@ -13,10 +21,30 @@ export class Search extends React.Component {
         this.props.dispatch(setSearchType(type))
     };
 
+    handleSearchSubmit = e => {
+        e.preventDefault();
+        if (this.props.searchTerm.length >= 3) {
+            return this.props.dispatch(searchBills(this.props.searchTerm))
+        }
+
+        this.setState({ error: 'Please enter a minimum of three characters to search'})
+
+    };
+
     render() {
         const {searchTerm, searchType} = this.props;
+        const { error } = this.state;
+        let submitButton;
+        if (searchType === 'bill') {
+            submitButton = <button id="submitSearch" name="submitSearch">Search</button>
+        }
+        let errorMessage;
+        if (error) {
+            errorMessage = <p className="searchError">{error}</p>
+        }
+
         return (
-            <form>
+            <form onSubmit={e => this.handleSearchSubmit(e)}>
                 <select name="searchType"
                         id="searchTypeSelector"
                         value={searchType}
@@ -31,6 +59,8 @@ export class Search extends React.Component {
                        value={searchTerm}
                        onChange={e => this.handleSearchTermChange(e)}
                 />
+                {submitButton}
+                {errorMessage}
             </form>
         )
     }
