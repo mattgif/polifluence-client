@@ -4,6 +4,7 @@ import ExpandableMemberRow from '../expandable-member-row';
 import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
 
 function MemberTable(props) {
+    // displays tabular presentations of members of congress
     const { members, searchTerm, fetchedBillsForMember, bills } = props;
     if (Object.keys(members).length === 0) {
         return <CubicLoadingSpinner/>
@@ -27,8 +28,9 @@ function MemberTable(props) {
                 billIds.forEach(id => memberBills[id] = bills[id])
             }
             return <ExpandableMemberRow member={member}
-                               key={memberId}
-                               bills={memberBills}
+                                        key={memberId}
+                                        bills={memberBills}
+                                        showBills={true}
             />
         });
 

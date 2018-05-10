@@ -104,3 +104,23 @@ export const fetchBill = billId => dispatch => {
         .then(res => res.json())
         .then(body => dispatch(fetchBillSuccess(body)))
 };
+
+export const FETCH_RECENT_BILLS_REQUEST = 'FETCH_RECENT_BILLS_REQUEST';
+export const fetchRecentBillsRequest = () => ({
+    type: FETCH_RECENT_BILLS_REQUEST
+});
+
+export const FETCH_RECENT_BILLS_SUCCESS = 'FETCH_RECENT_BILLS_SUCCESS';
+export const fetchRecentBillsSuccess = bills => ({
+    type: FETCH_RECENT_BILLS_SUCCESS,
+    bills
+});
+
+export const fetchRecentBills = () => dispatch => {
+    dispatch(fetchRecentBillsRequest());
+    return fetch(`${API_BASE_URL}/bills/recent`, {
+        method: 'GET'
+    })
+        .then(res => res.json())
+        .then(body => dispatch(fetchRecentBillsSuccess(body.bills)))
+};

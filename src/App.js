@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {fetchMembers} from "./actions";
+import {fetchMembers, fetchRecentBills} from "./actions";
 import './App.css';
 import MemberTable from './components/member-table/member-table';
 import BillTable from './components/bill-table';
@@ -8,17 +8,26 @@ import Search from './components/search';
 
 class App extends Component {
     componentDidMount() {
-        return this.props.dispatch(fetchMembers());
+        return this.props.dispatch(fetchMembers())
+            .then(() => this.props.dispatch(fetchRecentBills()));
     }
 
     render() {
-        const { searchType, billResults, searchingBills, billsNotFound, searchTerm } = this.props;
+        const { searchType, billResults, searchingBills, recentBills, fetchingRecent, billsNotFound, searchTerm } = this.props;
         let results;
         if (searchType === 'member' && searchTerm) {
             results = <MemberTable/>
         } else if ( billResults.length || searchingBills || billsNotFound ) {
             // user has successfully searched, is searching, or searched but failed for bills
-            results = <BillTable/>
+            results = <BillTable billResults={billResults}
+                                 loading={searchingBills}
+                                 showSponsor={true}
+            />
+        } else {
+            results = <BillTable billResults={recentBills}
+                                 loading={fetchingRecent}
+                                 showSponsor={true}
+            />
         }
         return (
             <div className="App">
@@ -34,6 +43,8 @@ const mapStateToProps = state => ({
     searchType: state.polifluence.searchType,
     billResults: state.polifluence.billResults,
     searchingBills: state.polifluence.searchingBills,
-    billsNotFound: state.polifluence.billsNotFound
+    billsNotFound: state.polifluence.billsNotFound,
+    fetchingRecent: state.polifluence.fetchingRecent,
+    recentBills: state.polifluence.recentBills
 });
 export default connect(mapStateToProps)(App);

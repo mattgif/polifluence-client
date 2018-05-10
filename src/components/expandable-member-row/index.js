@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 import { toCurrency, renderTitle } from "../utilities";
 import {fetchBill, fetchBillsByMember} from "../../actions";
 import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
+import ExpandableBillRow from "../expandable-bill-row";
 
 export class ExpandableMemberRow extends React.Component {
     // returns a tbody object to be used as row in expandable table
     // bills prop is false if bills haven't been fetch for member, or is
     // obj of bills keyed by bill id
+    // showBills prop controls whether bill data is displayed (this is used to prevent
+    // infinite nesting of tables, where a user table shows a bill, which shows a user, etc.)
     constructor(props) {
         super(props);
         this.state = {
@@ -20,7 +23,7 @@ export class ExpandableMemberRow extends React.Component {
     handleExpandClick() {
         // request full bill details for all (co)sponsored bills,
         // and expand the row
-        if (!this.props.bills && !this.state.loading) {
+        if (this.props.showBills && !this.props.bills && !this.state.loading) {
             this.setState({loading: true, expanded: !this.state.expanded})
             return this.props.dispatch(fetchBillsByMember(this.props.member.memberId)).then(
                 () => this.setState({loading: false})
@@ -40,9 +43,9 @@ export class ExpandableMemberRow extends React.Component {
     }
 
     render() {
-        const { member, bills } = this.props;
+        const { member, bills, showBills } = this.props;
         const {
-            chamber, nextElection, title, website, topContributors, topIndustries, memberId,
+            chamber, nextElection, website, topContributors, topIndustries, memberId,
             party, state, firstName, lastName, portrait, shortTitle, billsSponsored, billsCosponsored
         } = member;
         const { expanded, loading } = this.state;
@@ -52,11 +55,11 @@ export class ExpandableMemberRow extends React.Component {
             display: 'none'
         };
         let sponsored, cosponsored, loadingAnimation, topContribSection, topIndusSection, noContribData;
-        if (bills) {
+        if (showBills && bills) {
             // render bill items if bills were retrieved
             const billsSponsoredItems = billsSponsored.map(billId => {
                 const bill = bills[billId];
-                return <li key={bill.id}>{renderTitle(bill)}</li>
+                return <ExpandableBillRow key={`${billId}_item`} bill={bill} showSponsor={false}/>
             });
             sponsored = (
                 <section>
@@ -73,16 +76,22 @@ export class ExpandableMemberRow extends React.Component {
                     this.fetchMissingBill(billId);
                     return '';
                 }
-                return <li key={`${billId}_item`}>{renderTitle(bill)}</li>
+                return <ExpandableBillRow key={`${billId}_item`} bill={bill} showSponsor={true}/>
             });
             cosponsored = (
-                <section>
-                    <h4>Bill co-sponsored</h4>
-                    <ul>
+                    <table cellSpacing={0} className="embedded__expandable__table">
+                        <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Title</th>
+                            <th>Subject</th>
+                            <th>Date Introduced</th>
+                            <th>Sponsor</th>
+                        </tr>
+                        </thead>
                         {billsCoSponsoredItems}
-                    </ul>
-                </section>
-            )
+                    </table>
+            );
         }
         if (loading) {
             loadingAnimation = <CubicLoadingSpinner/>
@@ -140,6 +149,7 @@ export class ExpandableMemberRow extends React.Component {
                 </td>
             </tr>
             <tr><td  colSpan={5} className={expanded ? 'expanded' : 'collapsed'} style={expanded ? {} : collapsedStyle}>
+                <div>
                 <section className="contributions">
                     {topContribSection}
                     {topIndusSection}
@@ -159,6 +169,7 @@ export class ExpandableMemberRow extends React.Component {
                 {loadingAnimation}
                 {sponsored}
                 {cosponsored}
+                </div>
             </td></tr>
             </tbody>
         )

@@ -4,9 +4,9 @@ import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
 import ExpandableBillRow from "../expandable-bill-row";
 
 function BillTable(props) {
-    const { bills, billResults, searchingBills } = props;
+    const { bills, billResults, loading } = props;
 
-    if ( searchingBills ) {
+    if ( loading ) {
         return <CubicLoadingSpinner/>
     }
 
@@ -18,6 +18,7 @@ function BillTable(props) {
         const bill = bills[billId];
         return <ExpandableBillRow bill={bill}
                                   key={billId}
+                                  showSponsor={true}
         />
     });
 
@@ -39,8 +40,6 @@ function BillTable(props) {
 
 const mapStateToProps = state => ({
     bills: state.polifluence.bills,
-    billResults: state.polifluence.billResults,
-    searchingBills: state.polifluence.searchingBills
 });
 
 export default connect(mapStateToProps)(BillTable);

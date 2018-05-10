@@ -1,7 +1,8 @@
 import {
     CHANGE_SEARCH_TERM, CLEAR_SEARCH_TERM, FETCH_BILLS_BY_MEMBER_REQUEST, FETCH_BILLS_BY_MEMBER_SUCCESS,
     FETCH_MEMBERS_ERROR, FETCH_MEMBERS_REQUEST,
-    FETCH_MEMBERS_SUCCESS, SEARCH_BILLS_REQUEST, SEARCH_BILLS_SUCCESS,
+    FETCH_MEMBERS_SUCCESS, FETCH_RECENT_BILLS_REQUEST, FETCH_RECENT_BILLS_SUCCESS, SEARCH_BILLS_REQUEST,
+    SEARCH_BILLS_SUCCESS,
     SET_SEARCH_TYPE
 } from "../actions";
 
@@ -16,7 +17,9 @@ const initialState = {
     billResults: [],
     fetchingBills: false,
     searchingBills: false,
-    billsNotFound: false
+    billsNotFound: false,
+    fetchingRecent: false,
+    recentBills: []
 };
 
 export const polifluenceReducer = (state = initialState, action) => {
@@ -94,6 +97,26 @@ export const polifluenceReducer = (state = initialState, action) => {
         updatedState.error = undefined;
         updatedState.loading = false;
         updatedState.searchTerm = '';
+        return updatedState;
+    }
+
+    else if (action.type === FETCH_RECENT_BILLS_REQUEST) {
+        return {...state, fetchingRecent: true}
+    }
+
+    else if (action.type === FETCH_RECENT_BILLS_SUCCESS) {
+        const updatedState = Object.assign({}, state);
+        const billResults = [];
+        console.log(action)
+        action.bills.forEach(bill => {
+            billResults.push(bill.id);
+            updatedState.bills = {
+                ...updatedState.bills,
+                [bill.id]: bill
+            };
+        });
+        updatedState.recentBills = billResults;
+        updatedState.fetchingRecent = false;
         return updatedState;
     }
 

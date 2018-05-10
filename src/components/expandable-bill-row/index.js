@@ -7,6 +7,8 @@ export class ExpandableBillRow extends React.Component {
     // returns a tbody object to be used as row in expandable table
     // bills prop is false if bills haven't been fetch for member, or is
     // obj of bills keyed by bill id
+    // showSponsor prop controls whether sponsor info is displayed (not needed if row occurs
+    // embedded in sponsor row)
     constructor(props) {
         super(props);
         this.state = {
@@ -16,27 +18,26 @@ export class ExpandableBillRow extends React.Component {
     }
 
     handleExpandClick() {
-        // expand the row
+        // expand the row, request full bill including co-sponsors if not present
+        if (!this.props.bill.cosponsors && !this.state.requestedCosponsors) {
+            return this.props.dispatch(fetchBill(this.props.bill.id))
+                .then(() => this.setState({expanded: !this.state.expanded, requestedCoSponsors: true}))
+        }
         this.setState({expanded: !this.state.expanded})
     }
 
-    requestCosponsors() {
-        // cosponsors missing - put in request to dB
-        if (!this.state.requestedCosponsors) {
-            this.setState({requestedCosponsors: true});
-            return this.props.dispatch(fetchBill(this.props.bill.id))
-        }
-    }
-
     render() {
-        const { members, bill } = this.props;
+        const { members, bill, showSponsor } = this.props;
         const { expanded } = this.state;
         const sponsor = members[bill.sponsor];
+        let sponsorHead;
+        if (showSponsor) {
+            sponsorHead = <td className="bill__sponsor">{`${sponsor.shortTitle} ${sponsor.firstName} ${sponsor.lastName} ${sponsor.party}-${sponsor.state}`}</td>
+        }
+
         let cosponsors;
         if (bill.cosponsors) {
             cosponsors = bill.cosponsors.map(m => members[m]);
-        } else {
-            this.requestCosponsors();
         }
         const title = renderTitle(bill);
         const { subject, number, introducedDate, summary, enacted, housePassage, senatePassage } = bill;
@@ -75,13 +76,15 @@ export class ExpandableBillRow extends React.Component {
                 <td className="bill__title">{title}</td>
                 <td className="bill__subject">{subject}</td>
                 <td className="bill__introduction">{formatDate(introducedDate)}</td>
-                <td className="bill__sponsor">{`${sponsor.shortTitle} ${sponsor.firstName} ${sponsor.lastName} ${sponsor.party}-${sponsor.state}`}</td>
+                {sponsorHead}
             </tr>
             <tr><td  colSpan={5} className={expanded ? 'expanded' : 'collapsed'} style={expanded ? {} : collapsedStyle}>
                 {passageSection}
                 <dl>
+                    <dt>Full title:</dt>
+                    <dd>{bill.title}</dd>
                     <dt>Summary</dt>
-                    <dd>{summary}</dd>
+                    <dd>{summary ? summary : 'No summary data available'}</dd>
                 </dl>
             </td></tr>
             </tbody>
