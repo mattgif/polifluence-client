@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { toCurrency, renderTitle } from "../utilities";
-import {fetchBillsByMember} from "../../actions";
+import {fetchBill, fetchBillsByMember} from "../../actions";
+import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
 
 export class MemberRow extends React.Component {
     // returns a tbody object to be used as row in expandable table
@@ -11,18 +12,30 @@ export class MemberRow extends React.Component {
         super(props);
         this.state = {
             expanded: false,
-            loading: false
+            loading: false,
+            billsRequested: {}
         };
     }
 
     handleExpandClick() {
-        if (!this.props.bills && !this.props.loading) {
+        // request full bill details for all (co)sponsored bills,
+        // and expand the row
+        if (!this.props.bills && !this.state.loading) {
             this.setState({loading: true, expanded: !this.state.expanded})
             return this.props.dispatch(fetchBillsByMember(this.props.member.memberId)).then(
                 () => this.setState({loading: false})
             )
         } else {
             this.setState({expanded: !this.state.expanded})
+        }
+    }
+
+    fetchMissingBill(billId) {
+        // if somehow a bill didn't come back from the server in the initial batch,
+        // request is specifically (but only once!)
+        if (!this.state.billsRequested[billId]) {
+            this.setState({billsRequested: {...this.state.billsRequested, [billId]: true}})
+            return this.props.dispatch(fetchBill(billId))
         }
     }
 
@@ -38,16 +51,45 @@ export class MemberRow extends React.Component {
             height: 0,
             display: 'none'
         };
-        let sponsored;
+        let sponsored, cosponsored, loadingAnimation;
         if (bills) {
-            sponsored = billsSponsored.map(billId => {
+            // render bill items if bills were retrieved
+            const billsSponsoredItems = billsSponsored.map(billId => {
                 const bill = bills[billId];
-                return <li>{renderTitle(bill)}</li>
-            })
+                return <li key={bill.id}>{renderTitle(bill)}</li>
+            });
+            sponsored = (
+                <section>
+                    <h4>Bills sponsored</h4>
+                    <ul>
+                        {billsSponsoredItems}
+                    </ul>
+                </section>
+            );
+
+            const billsCoSponsoredItems = billsCosponsored.map(billId => {
+                const bill = bills[billId];
+                if (!bill) {
+                    this.fetchMissingBill(billId);
+                    return '';
+                }
+                return <li key={`${billId}_item`}>{renderTitle(bill)}</li>
+            });
+            cosponsored = (
+                <section>
+                    <h4>Bill co-sponsored</h4>
+                    <ul>
+                        {billsCoSponsoredItems}
+                    </ul>
+                </section>
+            )
+        }
+        if (loading) {
+            loadingAnimation = <CubicLoadingSpinner/>
         }
 
         return (
-            <tbody>
+            <tbody key={this.props.key}>
             <tr onClick={() => this.handleExpandClick()}>
                 <td key={`${memberId}_portrait`} className="memberImageCell">
                     <div className="memberImageWrapper">
@@ -96,12 +138,9 @@ export class MemberRow extends React.Component {
                             <dd>{nextElection}</dd>
                         </dl>
                     </section>
-                    <section>
-                        <h4>Bills sponsored</h4>
-                        <ul>
-                            {sponsored}
-                        </ul>
-                    </section>
+                    {loadingAnimation}
+                    {sponsored}
+                    {cosponsored}
                 </div>
             </td></tr>
             </tbody>

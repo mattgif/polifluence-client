@@ -13,11 +13,11 @@ function MemberTable(props) {
         });
 
         tableData = filteredMembers.map(member => {
-            const {memberId, billsCosponored, billsSponsored} = member;
+            const {memberId, billsCosponsored, billsSponsored} = member;
             let memberBills = false;
             if (fetchedBillsForMember[memberId]) {
                 memberBills = {};
-                const billIds = billsSponsored.concat(billsCosponored);
+                const billIds = billsSponsored.concat(billsCosponsored);
                 billIds.forEach(id => memberBills[id] = bills[id])
             }
             return <MemberRow member={member}

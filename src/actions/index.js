@@ -84,3 +84,23 @@ export const searchBills = query => (dispatch) => {
         .then(res => res.json())
         .then(body => dispatch(searchBillsSuccess(body.bills)))
 };
+
+export const FETCH_BILL_REQUEST = 'FETCH_BILL_REQUEST';
+export const fetchBillRequest = () => ({
+    type: FETCH_BILL_REQUEST
+});
+
+export const FETCH_BILL_SUCCESS = 'FETCH_BILL_SUCCESS';
+export const fetchBillSuccess = bill => ({
+    type: FETCH_BILL_SUCCESS,
+    bill
+});
+
+export const fetchBill = billId => dispatch => {
+    dispatch(fetchBillRequest());
+    return fetch(`${API_BASE_URL}/bills/${billId}`, {
+        method: 'GET'
+    })
+        .then(res => res.json())
+        .then(body => dispatch(fetchBillSuccess(body)))
+};
