@@ -51,7 +51,7 @@ export class ExpandableMemberRow extends React.Component {
             height: 0,
             display: 'none'
         };
-        let sponsored, cosponsored, loadingAnimation;
+        let sponsored, cosponsored, loadingAnimation, topContribSection, topIndusSection, noContribData;
         if (bills) {
             // render bill items if bills were retrieved
             const billsSponsoredItems = billsSponsored.map(billId => {
@@ -88,43 +88,62 @@ export class ExpandableMemberRow extends React.Component {
             loadingAnimation = <CubicLoadingSpinner/>
         }
 
+        if (topContributors.length) {
+            // successfully retrieved donations by company - create section
+            topContribSection = (
+                <ul>
+                    <h4>Top contributors by company:</h4>
+                    {topContributors.map((contrib, index) => {
+                        return <li key={index}>{contrib.contributor}: {toCurrency.format(contrib.total)}</li>
+                    })}
+                </ul>
+            )
+        }
+
+        if (topIndustries.length) {
+            // successfully retrieved donations by industry
+            topIndusSection = (
+                <ul>
+                    <h4>Top contributors by industry:</h4>
+                    {topIndustries.map((industry, index) => {
+                        return <li key={index}>{industry.name}: {toCurrency.format(industry.total)}</li>
+                    })}
+                </ul>
+            )
+        }
+
+        if (!topContributors.length && !topIndustries.length) {
+            // no donation info found
+            noContribData = <h2 className="notFound">No donation information available</h2>
+        }
+
         return (
             <tbody key={this.props.key}>
             <tr onClick={() => this.handleExpandClick()}>
-                <td key={`${memberId}_portrait`} className="memberImageCell">
+                <td className="memberImageCell">
                     <div className="memberImageWrapper">
                         <img src={portrait}
                              alt={`${shortTitle} ${firstName} ${lastName}`}/>
                     </div>
                 </td>
-                <td key={`${memberId}_title`}>
+                <td className="member__title">
                     {shortTitle}
                 </td>
-                <td key={`${memberId}_name`}>
+                <td className="member__name">
                     {firstName} {lastName}
                 </td>
-                <td key={`${memberId}_party`}>
+                <td className="member__party">
                     {party}
                 </td>
-                <td key={`${memberId}_state`}>
+                <td className="member__state">
                     {state}
                 </td>
             </tr>
             <tr><td  colSpan={5} className={expanded ? 'expanded' : 'collapsed'} style={expanded ? {} : collapsedStyle}>
                 <section className="contributions">
-                    <h4>Top contributors by company:</h4>
-                    <ul>
-                        {topContributors.map((contrib, index) => {
-                            return <li key={index}>{contrib.contributor}: {toCurrency.format(contrib.total)}</li>
-                        })}
-                    </ul>
-
-                    <h4>Top contributors by industry:</h4>
-                    <ul>
-                        {topIndustries.map((industry, index) => {
-                            return <li key={index}>{industry.name}: {toCurrency.format(industry.total)}</li>
-                        })}
-                    </ul>
+                    {topContribSection}
+                    {topIndusSection}
+                    {noContribData}
                 </section>
                 <section>
                     <h4>Member info</h4>

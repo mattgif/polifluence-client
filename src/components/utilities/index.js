@@ -22,3 +22,11 @@ function truncate(title) {
     const finalSpace = snip.lastIndexOf(" ");
     return snip.slice(0,finalSpace) + "…";
 }
+
+export function formatDate(_date) {
+    // takes in a string date (e.g., "2017-11-07") and returns a string date in the format:
+    // "Nov 7, 2017"
+    const options = { weekday: 'narrow', year: 'numeric', month: 'short', day: 'numeric' };
+    const date = new Date(_date);
+    return date.toLocaleDateString('en-US',options).slice(3)
+}

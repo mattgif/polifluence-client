@@ -10,7 +10,7 @@ function MemberTable(props) {
     }
 
     let tableData;
-    if (searchTerm.length > 2) {
+    if (searchTerm && searchTerm.length > 2) {
         const filteredMembers = Object.keys(members).filter(memberId => {
             const member = members[memberId];
             const string = `${member.firstName} ${member.lastName} ${member.firstName}`;

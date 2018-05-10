@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {changeSearchTerm, searchBills, setSearchType} from "../../actions";
+import {changeSearchTerm, clearSearchTerm, searchBills, setSearchType} from "../../actions";
 
 export class Search extends React.Component {
     constructor(props) {
@@ -28,8 +28,12 @@ export class Search extends React.Component {
         }
 
         this.setState({ error: 'Please enter a minimum of three characters to search'})
-
     };
+
+    handleClearSearch(e) {
+        e.preventDefault();
+        this.props.dispatch(clearSearchTerm())
+    }
 
     render() {
         const {searchTerm, searchType} = this.props;
@@ -59,6 +63,7 @@ export class Search extends React.Component {
                        value={searchTerm}
                        onChange={e => this.handleSearchTermChange(e)}
                 />
+                <button type="button" onClick={e => this.handleClearSearch(e)}>X</button>
                 {submitButton}
                 {errorMessage}
             </form>

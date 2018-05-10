@@ -15,7 +15,8 @@ const initialState = {
     fetchedBillsForMember: {},
     billResults: [],
     fetchingBills: false,
-    searchingBills: false
+    searchingBills: false,
+    billsNotFound: false
 };
 
 export const polifluenceReducer = (state = initialState, action) => {
@@ -79,8 +80,20 @@ export const polifluenceReducer = (state = initialState, action) => {
                 [bill.id]: bill
             };
         });
+        updatedState.billsNotFound = !billResults.length;
         updatedState.billResults = billResults;
         updatedState.searchingBills = false;
+        return updatedState;
+    }
+
+    else if (action.type === CLEAR_SEARCH_TERM) {
+        const updatedState = Object.assign({}, state);
+        updatedState.billResults = [];
+        updatedState.billsNotFound = false;
+        updatedState.searchingBills = false;
+        updatedState.error = undefined;
+        updatedState.loading = false;
+        updatedState.searchTerm = '';
         return updatedState;
     }
 
