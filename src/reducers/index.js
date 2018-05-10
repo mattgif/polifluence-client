@@ -6,7 +6,7 @@ import {
 } from "../actions";
 
 const initialState = {
-    members: [],
+    members: {},
     error: undefined,
     loading: false,
     searchTerm: '',
@@ -20,7 +20,9 @@ const initialState = {
 
 export const polifluenceReducer = (state = initialState, action) => {
     if (action.type === FETCH_MEMBERS_SUCCESS) {
-        return {...state, members: action.members, loading: false, error: undefined}
+        const members = {};
+        action.members.forEach(member => members[member.memberId] = member);
+        return {...state, members, loading: false, error: undefined}
     }
 
     else if (action.type === FETCH_MEMBERS_ERROR) {

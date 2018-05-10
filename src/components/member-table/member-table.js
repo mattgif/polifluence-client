@@ -1,26 +1,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import MemberRow from '../member-row';
+import ExpandableMemberRow from '../expandable-member-row';
+import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
 
 function MemberTable(props) {
     const { members, searchTerm, fetchedBillsForMember, bills } = props;
+    if (Object.keys(members).length === 0) {
+        return <CubicLoadingSpinner/>
+    }
 
     let tableData;
     if (searchTerm.length > 2) {
-        const filteredMembers = members.filter(member => {
+        const filteredMembers = Object.keys(members).filter(memberId => {
+            const member = members[memberId];
             const string = `${member.firstName} ${member.lastName} ${member.firstName}`;
             return string.toLowerCase().includes(searchTerm.toLowerCase());
         });
 
-        tableData = filteredMembers.map(member => {
-            const {memberId, billsCosponsored, billsSponsored} = member;
+        tableData = filteredMembers.map(memberId => {
+            const member = members[memberId];
+            const {billsCosponsored, billsSponsored} = member;
             let memberBills = false;
             if (fetchedBillsForMember[memberId]) {
                 memberBills = {};
                 const billIds = billsSponsored.concat(billsCosponsored);
                 billIds.forEach(id => memberBills[id] = bills[id])
             }
-            return <MemberRow member={member}
+            return <ExpandableMemberRow member={member}
                                key={memberId}
                                bills={memberBills}
             />
