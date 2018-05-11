@@ -18,7 +18,7 @@ const initialState = {
     fetchingBills: false,
     searchingBills: false,
     billsNotFound: false,
-    fetchingRecent: false,
+    fetchingRecent: true,
     recentBills: []
 };
 
@@ -107,7 +107,6 @@ export const polifluenceReducer = (state = initialState, action) => {
     else if (action.type === FETCH_RECENT_BILLS_SUCCESS) {
         const updatedState = Object.assign({}, state);
         const billResults = [];
-        console.log(action)
         action.bills.forEach(bill => {
             billResults.push(bill.id);
             updatedState.bills = {

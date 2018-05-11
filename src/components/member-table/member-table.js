@@ -5,7 +5,9 @@ import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
 
 function MemberTable(props) {
     // displays tabular presentations of members of congress
-    const { members, searchTerm, fetchedBillsForMember, bills } = props;
+    // showBills props controls whether member rows display bill info:
+    // used for preventing infinite nesting off member -> bill -> member -> bill, etc.
+    const { members, searchTerm, fetchedBillsForMember, bills, showBills } = props;
     if (Object.keys(members).length === 0) {
         return <CubicLoadingSpinner/>
     }
@@ -30,7 +32,7 @@ function MemberTable(props) {
             return <ExpandableMemberRow member={member}
                                         key={memberId}
                                         bills={memberBills}
-                                        showBills={true}
+                                        showBills={showBills}
             />
         });
 
@@ -43,7 +45,7 @@ function MemberTable(props) {
         <table cellSpacing={0} className="expandable__table">
             <thead>
             <tr>
-                <th colSpan={3}>Member</th>
+                <th>Member</th>
                 <th>Party</th>
                 <th>State</th>
             </tr>
@@ -54,7 +56,6 @@ function MemberTable(props) {
 }
 
 const mapStateToProps = state => ({
-    members: state.polifluence.members,
     searchTerm: state.polifluence.searchTerm,
     fetchedBillsForMember: state.polifluence.fetchedBillsForMember,
     bills: state.polifluence.bills

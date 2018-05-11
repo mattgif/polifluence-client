@@ -10,7 +10,7 @@ function BillTable(props) {
         return <CubicLoadingSpinner/>
     }
 
-    if ( billResults.length === 0) {
+    if ( !loading && billResults.length === 0) {
         return <h2 className="notFound">No results found</h2>
     }
 

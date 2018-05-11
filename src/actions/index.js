@@ -103,6 +103,7 @@ export const fetchBill = billId => dispatch => {
     })
         .then(res => res.json())
         .then(body => dispatch(fetchBillSuccess(body)))
+        .catch(() => console.error({message: `Data requested for ${billId} could not be retrieved from ProPublica`}))
 };
 
 export const FETCH_RECENT_BILLS_REQUEST = 'FETCH_RECENT_BILLS_REQUEST';

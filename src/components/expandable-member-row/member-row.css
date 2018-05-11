@@ -1,0 +1,60 @@
+:root {
+    --dem-color: #e3e3ff;
+    --rep-color: #ffced1;
+    --ind-color: #bccbba;
+}
+tbody.expandable__member__row {
+    vertical-align: middle;
+}
+
+tbody.expandable__member__row.D {
+    background-color: var(--dem-color);
+}
+
+tbody.expandable__member__row.R {
+    background-color: var(--rep-color);
+}
+
+tbody.expandable__member__row.I {
+    background-color: var(--ind-color);
+}
+
+tbody.expandable__member__row td {
+    border-bottom: none;
+    padding: 20px;
+}
+
+tbody.expandable__member__row td.member {
+    text-align: left;
+}
+
+tbody.expandable__member__row td.member h4 {
+    display: inline-block;
+    margin: 0;
+}
+
+tbody.expandable__member__row div.member__image__wrapper {
+    width: 50px;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+tbody.expandable__member__row div.member__image__wrapper img {
+    width: 100%;
+}
+
+tbody.expandable__member__row ul {
+    list-style: none;
+    padding: 0;
+}
+
+tbody.expandable__member__row td.member__party img {
+    width: 25px;
+    height: 25px;
+}
+
+tbody.expandable__member__row td.member__party {
+    font-size: 25px;
+    color: #118012;
+    text-align: center;
+}

@@ -1,0 +1,85 @@
+/*expandable table*/
+table.expandable__table {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-collapse: collapse;
+}
+
+table.expandable__table thead {
+    background-color: #f9fafb;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+table.expandable__table thead th {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    height: 3rem;
+    padding: 0;
+    margin: 0;
+}
+
+table.expandable__table .image {
+    width: 75px;
+    height: 75px;
+    padding: 10px;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.expandable__table .bottom {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+table.expandable__table .bottom.dotted {
+    border-bottom: 2px dotted rgba(0, 0, 0, 0.2);
+}
+
+table.expandable__table td {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    margin: 0;
+}
+
+table.expandable__table tbody tr:first-child {
+    cursor: pointer;
+}
+
+table.expandable__table tr.expanded {
+    border-bottom: 30px solid #F8EEE7;
+}
+
+table.expandable__table dt {
+    margin-top: 20px;
+}
+
+/*media queries*/
+
+@media screen and (max-width: 768px) {
+    table.expandable__table tr {
+        display: flex;
+        flex-wrap: wrap;
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 25px;
+    }
+
+    table.expandable__table thead th,
+    table.expandable__table td {
+        width: 100%;
+        text-align: left;
+        border-right: none;
+        margin-bottom: 10px;
+    }
+
+    table.expandable__table thead th {
+        height: auto;
+        margin: 8px;
+    }
+
+    table.expandable__table tbody {
+        height: auto;
+    }
+
+    table.expandable__table tr td.expanded > div {
+        flex-wrap: wrap;
+    }
+}
