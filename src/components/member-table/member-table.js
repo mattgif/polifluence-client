@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ExpandableMemberRow from '../expandable-member-row';
 import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
+import './member-table.css';
 
 function MemberTable(props) {
     // displays tabular presentations of members of congress
@@ -13,7 +14,7 @@ function MemberTable(props) {
     }
 
     let tableData;
-    if (searchTerm && searchTerm.length > 2) {
+    if (searchTerm && searchTerm.length > 1) {
         const filteredMembers = Object.keys(members).filter(memberId => {
             const member = members[memberId];
             const string = `${member.firstName} ${member.lastName} ${member.firstName}`;
@@ -42,7 +43,7 @@ function MemberTable(props) {
     }
 
     return (
-        <table cellSpacing={0} className="expandable__table">
+        <table cellSpacing={0} className="member expandable__table">
             <thead>
             <tr>
                 <th>Member</th>

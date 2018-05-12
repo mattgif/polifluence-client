@@ -1,0 +1,26 @@
+:root {
+    --very-dark: rgb(0, 53, 64);
+    --dark: #175867;
+}
+
+body .App * {
+    line-height: 1.4rem;
+}
+
+body .App {
+    padding: 30px;
+}
+
+body .App > h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    color: #9a9a9a;
+    border-bottom: 1px solid #9a9a9a;
+    font-family: "Open Sans", sans-serif;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-transform: uppercase;
+}

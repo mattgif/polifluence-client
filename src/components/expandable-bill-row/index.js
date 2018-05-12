@@ -71,14 +71,20 @@ export class ExpandableBillRow extends React.Component {
 
         return (
             <tbody key={this.props.key} className="expandable__bill__row">
-            <tr onClick={() => this.handleExpandClick()} className={expanded ? "bottom dotted" : "bottom"}>
+            <tr onClick={() => this.handleExpandClick()}
+                className={expanded ? "bottom dotted" : "bottom"}
+                style={expanded ? {color: "#333"} : {}}
+            >
                 <td className="bill__number">{number}</td>
                 <td className="bill__title">{title}</td>
                 <td className="bill__subject">{subject}</td>
                 <td className="bill__introduction">{formatDate(introducedDate)}</td>
                 {sponsorHead}
             </tr>
-            <tr><td  colSpan={5} className={expanded ? 'expanded bottom' : 'collapsed'} style={expanded ? {} : collapsedStyle}>
+            <tr><td  colSpan={5}
+                     className={expanded ? 'expanded bottom' : 'collapsed'}
+                     style={expanded ? {color: "#333"} : collapsedStyle}
+            >
                 {passageSection}
                 <dl>
                     <dt>Full title:</dt>

@@ -5,6 +5,8 @@ import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
 import SponsoredBills from "../sponsored-bills-section";
 import ContributorSection from "../contributors";
 import './member-row.css';
+import ToggleButton from "../toggle-button";
+
 
 const REPUB_LOGO = 'http://res.cloudinary.com/structureless/image/upload/v1526005930/Republican_Disc.svg';
 const DEM_LOGO = 'http://res.cloudinary.com/structureless/image/upload/v1526005930/DemocraticLogo.svg';
@@ -23,11 +25,10 @@ export class ExpandableMemberRow extends React.Component {
             billsRequested: {},
             billsVisible: false
         };
+        this.handleShowBillsClick = this.handleShowBillsClick.bind(this);
     }
 
     handleExpandClick() {this.setState({expanded: !this.state.expanded})}
-
-
 
     handleShowBillsClick() {
         const { billsVisible, loading } = this.state;
@@ -51,8 +52,8 @@ export class ExpandableMemberRow extends React.Component {
     render() {
         const { member, bills, showBills } = this.props;
         const {
-            chamber, nextElection, website, topContributors, topIndustries,
-            party, state, firstName, lastName, portrait, shortTitle, title, billsSponsored, billsCosponsored
+            topContributors, topIndustries, party, state, firstName, lastName,
+            portrait, shortTitle, title, billsSponsored, billsCosponsored, nextElection
         } = member;
         const { expanded, loading, billsVisible } = this.state;
         const collapsedStyle = {
@@ -62,7 +63,7 @@ export class ExpandableMemberRow extends React.Component {
         };
         let sponsoredBills, toggleBillDisplay, partyLogo;
         if (showBills) {
-            toggleBillDisplay = <button onClick={() => this.handleShowBillsClick()}>{billsVisible ? 'Hide bill information' : 'View recently (co)sponsored bills'}</button>
+            toggleBillDisplay = <ToggleButton toggleAction={this.handleShowBillsClick} text="Member bills"/>
         }
         if (billsVisible && bills) {
             // render bill items if bills were retrieved
@@ -101,15 +102,9 @@ export class ExpandableMemberRow extends React.Component {
                 </td>
             </tr>
             <tr><td  colSpan={3} className={expanded ? 'expanded bottom' : 'collapsed'} style={expanded ? {} : collapsedStyle}>
+                <h3>{title} from {state}</h3>
+                <h4>Next election: {nextElection}</h4>
                 <div>
-                    <section className="member__info">
-                        <h4>Member info</h4>
-                        <ul>
-                            <li><span className="label">Chamber:</span> {chamber}</li>
-                            <li><span className="label">Website:</span> <a href={website}>{website}</a></li>
-                            <li><span className="label">Next election:</span> {nextElection}</li>
-                        </ul>
-                    </section>
                     {contributorSection}
                     {toggleBillDisplay}
                     {sponsoredBills}

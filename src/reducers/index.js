@@ -46,7 +46,7 @@ export const polifluenceReducer = (state = initialState, action) => {
     }
 
     else if (action.type === CLEAR_SEARCH_TERM) {
-        return {...state, searchTerm: undefined}
+        return {...state, searchTerm: ''}
     }
 
     else if (action.type === FETCH_BILLS_BY_MEMBER_REQUEST) {

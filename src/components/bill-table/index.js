@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
 import ExpandableBillRow from "../expandable-bill-row";
+import './bill-table.css';
 
 function BillTable(props) {
     const { bills, billResults, loading } = props;
@@ -23,13 +24,13 @@ function BillTable(props) {
     });
 
     return (
-        <table cellSpacing={0} className="expandable__table">
+        <table cellSpacing={0} className="bill expandable__table">
             <thead>
             <tr>
                 <th>Number</th>
                 <th>Title</th>
                 <th>Subject</th>
-                <th>Date Introduced</th>
+                <th>Introduced</th>
                 <th>Sponsor</th>
             </tr>
             </thead>

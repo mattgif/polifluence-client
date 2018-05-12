@@ -10,7 +10,8 @@ form.search__form {
 
 #searchTypeSelector {
     border-radius: 4px 0 0 4px;
-    background-color: #21409a;
+    border-color: #175867;
+    background-color: #175867;
     color: #fff;
     padding: 0 15px;
 }

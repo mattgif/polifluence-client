@@ -1,0 +1,16 @@
+/*embedded expandable table*/
+table.embedded__expandable__table thead {
+    background-color: #36304a;
+    color: #fff;
+}
+
+table.embedded__expandable__table thead th {
+    vertical-align: middle;
+    text-align: center;
+    border-right: 1px solid #bbb;
+}
+
+table.embedded__expandable__table tbody tr:nth-child(odd) {
+    background-color: #efefef;
+}
+

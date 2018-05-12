@@ -11,7 +11,9 @@ export function Banner(props) {
         opacity: 0,
         overflow: 'hidden'
     };
-    const brand = <h1 style={{fontFamily:'Raleway, sans-serif'}}><span style={{color:'#21409a'}}>pol</span><span style={{color:'#ff7530'}}>i</span><span style={{color:'#333'}}>fluence</span></h1>;
+    const brand = <h1 style={{fontFamily:'Raleway, sans-serif'}}>
+        <span style={{color:'#175867'}}>pol</span><span style={{color:'#ff7530'}}>i</span><span style={{color:'#333'}}>fluence</span>
+    </h1>;
     const intro = (
         <p style={compact ? hiddenStyle : {}}>
             Search for bills or members of Congress to discover who's donating to the people making our laws.

@@ -1,7 +1,10 @@
 :root {
-    --dem-color: #e3e3ff;
-    --rep-color: #ffced1;
-    --ind-color: #bccbba;
+    --dem-color: #f7f6ff;
+    --dem-dark: #8390c2;
+    --rep-color: #ffeded;
+    --rep-dark: #d1817a;
+    --ind-color: #e3f8e3;
+    --ind-dark: #94cb8f;
 }
 tbody.expandable__member__row {
     vertical-align: middle;
@@ -11,17 +14,33 @@ tbody.expandable__member__row.D {
     background-color: var(--dem-color);
 }
 
+tbody.expandable__member__row.D > tr:first-child:hover {
+    background-color: var(--dem-dark);
+}
+
 tbody.expandable__member__row.R {
     background-color: var(--rep-color);
+}
+
+tbody.expandable__member__row.R > tr:first-child:hover {
+    background-color: var(--rep-dark);
 }
 
 tbody.expandable__member__row.I {
     background-color: var(--ind-color);
 }
 
+tbody.expandable__member__row.I > tr:first-child:hover {
+    background-color: var(--ind-dark);
+}
+
 tbody.expandable__member__row td {
     border-bottom: none;
     padding: 20px;
+}
+
+tbody.expandable__member__row tr:first-child td {
+    vertical-align: middle;
 }
 
 tbody.expandable__member__row td.member {
@@ -57,4 +76,23 @@ tbody.expandable__member__row td.member__party {
     font-size: 25px;
     color: #118012;
     text-align: center;
+}
+
+tbody.expandable__member__row td.member__state {
+    text-align: center;
+}
+
+tbody.expandable__member__row td.member__state span {
+    margin: 0 20px;
+    font-size: 1.5em;
+}
+
+tbody.expandable__member__row td.expanded.bottom > h3 {
+    font-size: 16px;
+}
+tbody.expandable__member__row td.expanded.bottom > h4 {
+    font-size: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    margin-bottom: 15px;
 }

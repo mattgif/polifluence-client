@@ -1,0 +1,26 @@
+table.expandable__table.bill {
+    color: #808080;
+}
+
+table.expandable__table.bill tbody:nth-child(odd) {
+    background-color: #eeeeee;
+}
+
+table.expandable__table.bill th {
+    padding: 0 20px;
+}
+
+table.expandable__table.bill td {
+    padding: 20px;
+}
+
+table.expandable__table.bill tbody tr:first-child:hover {
+    background-color: #b4b4b4;
+    color: #333;
+}
+
+table.expandable__table.bill tbody tr:first-child td {
+    vertical-align: middle;
+    text-align: center;
+}
+

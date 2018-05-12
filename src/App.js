@@ -6,8 +6,11 @@ import MemberTable from './components/member-table/member-table';
 import BillTable from './components/bill-table';
 import Search from './components/search';
 import 'reset.css';
+import './App.css';
 import './components/state-fonts/stateface.css';
 import './components/expandable-table.css';
+
+import Banner from "./components/banner";
 
 class App extends Component {
     componentDidMount() {
@@ -17,7 +20,7 @@ class App extends Component {
 
     render() {
         const { members, searchType, billResults, searchingBills, recentBills, fetchingRecent, billsNotFound, searchTerm } = this.props;
-        let results;
+        let results, title;
         if (searchType === 'member' && searchTerm) {
             results = <MemberTable members={members}
                                    showBills={true}/>
@@ -28,6 +31,7 @@ class App extends Component {
                                  showSponsor={true}
             />
         } else {
+            title= 'Recently enacted bills';
             results = <BillTable billResults={recentBills}
                                  loading={fetchingRecent}
                                  showSponsor={true}
@@ -35,7 +39,9 @@ class App extends Component {
         }
         return (
             <div className="App">
+                <Banner/>
                 <Search/>
+                <h2>{title}</h2>
                 { results }
             </div>
         );

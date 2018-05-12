@@ -1,14 +1,24 @@
 /*expandable table*/
-table.expandable__table {
+table.expandable__table,
+table.embedded__expandable__table {
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     background-color: #fff;
     border-collapse: collapse;
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    overflow: hidden;
+    border-radius: 8px;
+    font-family: "Open Sans", sans-serif;
 }
 
 table.expandable__table thead {
-    background-color: #f9fafb;
+    background-color: #175867;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    color: #fff;
 }
 
 table.expandable__table thead th {
@@ -16,6 +26,11 @@ table.expandable__table thead th {
     height: 3rem;
     padding: 0;
     margin: 0;
+    vertical-align: middle;
+}
+
+table.expandable__table thead th:last-child {
+    border-right: none;
 }
 
 table.expandable__table .image {
@@ -32,7 +47,9 @@ table.expandable__table .bottom {
 }
 
 table.expandable__table .bottom.dotted {
-    border-bottom: 2px dotted rgba(0, 0, 0, 0.2);
+    border-bottom: none;
+    background: radial-gradient(circle at bottom, rgba(0, 0, 0, 0.2) 1px, transparent 1.5px) repeat-x bottom;
+    background-size: 5px 4px;
 }
 
 table.expandable__table td {
@@ -40,7 +57,7 @@ table.expandable__table td {
     margin: 0;
 }
 
-table.expandable__table tbody tr:first-child {
+table.expandable__table tbody > tr:first-child {
     cursor: pointer;
 }
 
@@ -51,6 +68,8 @@ table.expandable__table tr.expanded {
 table.expandable__table dt {
     margin-top: 20px;
 }
+
+
 
 /*media queries*/
 
