@@ -1,0 +1,47 @@
+form.search__form {
+    font-family: "Open Sans", sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 850px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 45px;
+}
+
+#searchTypeSelector {
+    border-radius: 4px 0 0 4px;
+    background-color: #21409a;
+    color: #fff;
+    padding: 0 15px;
+}
+
+#searchTypeSelector,
+#searchField {
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    height: 46px;
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+#searchField {
+    width: 100%;
+    padding: 0 35px 0 15px;
+}
+
+#search__wrapper {
+    width: 80%;
+    position: relative;
+    margin-right: 15px;
+}
+
+#search__wrapper button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: none;
+    background: transparent;
+    color: #333;
+    font-size: 18px;
+    cursor: pointer;
+}

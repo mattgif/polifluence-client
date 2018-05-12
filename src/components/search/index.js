@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {changeSearchTerm, clearSearchTerm, searchBills, setSearchType} from "../../actions";
+import MdClear from 'react-icons/lib/md/clear';
+import './search.css';
 
 export class Search extends React.Component {
     constructor(props) {
@@ -48,7 +50,7 @@ export class Search extends React.Component {
         }
 
         return (
-            <form onSubmit={e => this.handleSearchSubmit(e)}>
+            <form onSubmit={e => this.handleSearchSubmit(e)} className="search__form">
                 <select name="searchType"
                         id="searchTypeSelector"
                         value={searchType}
@@ -57,13 +59,15 @@ export class Search extends React.Component {
                     <option value="member">Member</option>
                     <option value="bill">Bill</option>
                 </select>
-                <input type="text"
-                       name="search"
-                       id="searchField"
-                       value={searchTerm}
-                       onChange={e => this.handleSearchTermChange(e)}
-                />
-                <button type="button" onClick={e => this.handleClearSearch(e)}>X</button>
+                <div id="search__wrapper">
+                    <input type="text"
+                           name="search"
+                           id="searchField"
+                           value={searchTerm}
+                           onChange={e => this.handleSearchTermChange(e)}
+                    />
+                    <button type="button" onClick={e => this.handleClearSearch(e)}><MdClear/></button>
+                </div>
                 {submitButton}
                 {errorMessage}
             </form>
