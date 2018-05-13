@@ -2,11 +2,11 @@ table.expandable__table.bill {
     color: #333;
 }
 
-table.expandable__table.bill tbody:nth-child(odd) {
+table.expandable__table.bill > tbody:nth-child(odd) {
     background-color: #eeeeee;
 }
 
-table.expandable__table.bill tbody:nth-child(even) {
+table.expandable__table.bill > tbody:nth-child(even) {
     background-color: rgba(238, 181, 145, .4);
 }
 
@@ -24,7 +24,7 @@ table.expandable__table.bill > tbody > tr:first-child:hover {
     color: #fff;
 }
 
-table.expandable__table.bill tbody tr:first-child td {
+table.expandable__table.bill > tbody > tr:first-child > td {
     vertical-align: middle;
     text-align: center;
 }
@@ -43,34 +43,34 @@ table.expandable__table.bill tbody tr:first-child td {
         padding: 25px;
     }
 
-    table.expandable__table.bill > tbody > tr:first-child td {
+    table.expandable__table.bill > tbody > tr:first-child > td {
         text-align: left;
         display: grid;
         grid-template-columns: 7em auto;
     }
 
-    table.expandable__table.bill > tbody > tr:first-child td::before {
+    table.expandable__table.bill > tbody > tr:first-child > td::before {
         display: inline;
         font-weight: bold;
     }
 
-    table.expandable__table.bill > tbody > tr:first-child td:nth-child(1)::before {
+    table.expandable__table.bill > tbody > tr:first-child > td:nth-child(1)::before {
         content: 'Number: ';
     }
 
-    table.expandable__table.bill > tbody > tr:first-child td:nth-child(2)::before {
+    table.expandable__table.bill > tbody > tr:first-child > td:nth-child(2)::before {
         content: 'Title: ';
     }
 
-    table.expandable__table.bill > tbody > tr:first-child td:nth-child(3)::before {
+    table.expandable__table.bill > tbody > tr:first-child > td:nth-child(3)::before {
         content: 'Subject: ';
     }
 
-    table.expandable__table.bill > tbody > tr:first-child td:nth-child(4)::before {
+    table.expandable__table.bill > tbody > tr:first-child > td:nth-child(4)::before {
         content: 'Introduced: ';
     }
 
-    table.expandable__table.bill > tbody > tr:first-child td:nth-child(5)::before {
+    table.expandable__table.bill > tbody > tr:first-child > td:nth-child(5)::before {
         content: 'Sponsor: ';
     }
 }

@@ -115,7 +115,7 @@ export class ExpandableBillRow extends React.Component {
                     <dd style={showSummary ? {} : collapsedStyle}>{summary ? summary : 'No summary data available'}</dd>
                     <dt>Sponsor</dt>
                     <dd>
-                        <table>
+                        <table className='expandable__table member embedded'>
                             <ExpandableMemberRow member={sponsor} showBills={false}/>
                         </table>
                     </dd>

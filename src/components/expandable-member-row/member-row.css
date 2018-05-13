@@ -97,6 +97,10 @@ tbody.expandable__member__row td.expanded.bottom > h4 {
     margin-bottom: 15px;
 }
 
+table.expandable__table.member.embedded tbody.expandable__member__row tr {
+    background-color: #fff;
+}
+
 @media screen and (max-width: 768px) {
     tbody.expandable__member__row > tr:first-child {
         position: relative;
@@ -134,6 +138,47 @@ tbody.expandable__member__row td.expanded.bottom > h4 {
 
     tbody.expandable__member__row > tr:first-child td.member__state .stateface:before {
         font-size: 40px;
+    }
+
+    /* embedded instance */
+    table.expandable__table.member.embedded tbody.expandable__member__row > tr:first-child td {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        text-align: left;
+        margin: 0;
+    }
+
+    table.expandable__table.member.embedded tbody.expandable__member__row > tr:first-child td.member h4 {
+        position: static;
+        font-weight: bold;
+        text-align: left;
+        margin: 0;
+        width: 100%;
+    }
+
+    table.expandable__table.member.embedded tbody.expandable__member__row > tr:first-child td.member__party {
+        display: inline-block;
+        position: static;
+        width: 55px;
+        text-align: left;
+        margin: 0;
+    }
+
+    table.expandable__table.member.embedded tbody.expandable__member__row > tr:first-child td.member__state {
+        display: inline-block;
+        position: static;
+        padding-top: 30px;
+        width: 55px;
+        text-align: left;
+        margin: 0;
+    }
+
+    table.expandable__table.member.embedded tbody.expandable__member__row > tr td.collapsed {
+        display: none;
+        height: 0;
+        width: 0;
+        overflow: hidden;
     }
 }
 
