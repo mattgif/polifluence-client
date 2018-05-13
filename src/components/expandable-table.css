@@ -74,19 +74,30 @@ table.expandable__table dt {
 /*media queries*/
 
 @media screen and (max-width: 768px) {
-    table.expandable__table tr {
-        display: flex;
-        flex-wrap: wrap;
-        border-right: 1px solid rgba(0, 0, 0, 0.2);
-        padding: 25px;
+
+
+    table.expandable__table thead {
+        display: none;
+    }
+
+
+
+    table.expandable__table tr.collapsed {
+        display: none;
+        overflow: hidden;
+        width: 0;
+        height: 0;
     }
 
     table.expandable__table thead th,
     table.expandable__table td {
         width: 100%;
-        text-align: left;
         border-right: none;
         margin-bottom: 10px;
+    }
+
+    table.expandable__table td {
+        text-align: left;
     }
 
     table.expandable__table thead th {

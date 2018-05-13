@@ -8,19 +8,30 @@ body .App * {
 }
 
 body .App {
-    padding: 30px;
+    box-sizing: border-box;
+    padding: 75px 30px;
+    width: 100vw;
+    overflow: hidden;
 }
 
 body .App > h2 {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 30px;
-    padding-bottom: 15px;
+    margin-bottom: 15px;
     color: #9a9a9a;
-    border-bottom: 1px solid #9a9a9a;
     font-family: "Open Sans", sans-serif;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
     text-transform: uppercase;
+}
+
+body .App > P {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #9a9a9a;
 }

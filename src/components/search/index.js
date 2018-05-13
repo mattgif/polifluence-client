@@ -51,6 +51,7 @@ export class Search extends React.Component {
 
         return (
             <form onSubmit={e => this.handleSearchSubmit(e)} className="search__form">
+                <label htmlFor="searchTypeSelector">Search for a</label>
                 <select name="searchType"
                         id="searchTypeSelector"
                         value={searchType}

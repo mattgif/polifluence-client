@@ -42,6 +42,7 @@ class App extends Component {
                 <Banner/>
                 <Search/>
                 <h2>{title}</h2>
+                <p className="instructions">Click on a row to view more information.</p>
                 { results }
             </div>
         );

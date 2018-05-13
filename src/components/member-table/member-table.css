@@ -1,3 +1,10 @@
 table.member.expandable__table {
     font-family: "Open Sans", sans-serif;
 }
+
+table.member.expandable__table tr.not__found td {
+    text-align: center;
+    padding-top: 45px;
+    font-size: 18px;
+}
+

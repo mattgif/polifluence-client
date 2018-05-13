@@ -5,6 +5,7 @@ import CubicLoadingSpinner from "../loading-animations/cubic-loading-spinner";
 import SponsoredBills from "../sponsored-bills-section";
 import ContributorSection from "../contributors";
 import './member-row.css';
+import PropTypes from 'prop-types';
 import ToggleButton from "../toggle-button";
 
 
@@ -13,7 +14,7 @@ const DEM_LOGO = 'http://res.cloudinary.com/structureless/image/upload/v15260059
 
 export class ExpandableMemberRow extends React.Component {
     // returns a tbody object to be used as row in expandable table
-    // bills prop is false if bills haven't been fetch for member, or is
+    // bills prop is false if bills haven't been fetched for member, or is
     // obj of bills keyed by bill id
     // showBills prop controls whether bill data is displayed (this is used to prevent
     // infinite nesting of tables, where a user table shows a bill, which shows a user, etc.)
@@ -114,6 +115,12 @@ export class ExpandableMemberRow extends React.Component {
         )
     }
 }
+
+ExpandableMemberRow.propTypes = {
+    member: PropTypes.object.isRequired,
+    showBills: PropTypes.bool,
+    bills: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
+};
 
 export default connect()(ExpandableMemberRow)
 

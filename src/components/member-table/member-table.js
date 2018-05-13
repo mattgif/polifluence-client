@@ -38,7 +38,7 @@ function MemberTable(props) {
         });
 
         if (!tableData.length) {
-            tableData = <tbody><tr className="notFound"><td colSpan={5}>No results found</td></tr></tbody>
+            tableData = <tbody><tr className="not__found"><td colSpan={5}>No results found</td></tr></tbody>
         }
     }
 

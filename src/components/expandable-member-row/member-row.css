@@ -96,3 +96,54 @@ tbody.expandable__member__row td.expanded.bottom > h4 {
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
     margin-bottom: 15px;
 }
+
+@media screen and (max-width: 768px) {
+    tbody.expandable__member__row > tr:first-child {
+        position: relative;
+        display: flex;
+    }
+
+    tbody.expandable__member__row > tr:first-child td {
+        text-align: left;
+    }
+
+    tbody.expandable__member__row > tr:first-child div.member__image__wrapper {
+        width: 150px;
+    }
+
+    tbody.expandable__member__row > tr:first-child td.member h4 {
+        position: absolute;
+        font-weight: bold;
+    }
+
+    tbody.expandable__member__row > tr:first-child td.member__party {
+        position: absolute;
+        top: 40px;
+        left: 200px;
+    }
+    tbody.expandable__member__row > tr:first-child td.member__party img {
+        width: 50px;
+        height: 50px;
+    }
+
+    tbody.expandable__member__row > tr:first-child td.member__state {
+        position: absolute;
+        left: 185px;
+        top: 120px;
+    }
+
+    tbody.expandable__member__row > tr:first-child td.member__state .stateface:before {
+        font-size: 40px;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    tbody.expandable__member__row > tr:first-child td.member__party {
+        position: absolute;
+        top: 70px;
+    }
+
+    tbody.expandable__member__row > tr:first-child td.member__state {
+        top: 135px;
+    }
+}
